@@ -1,0 +1,21 @@
+language: ruby
+rvm:
+  - 2.2.5
+
+install: gem install jekyll html-proofer
+script: jekyll build && htmlproofer ./_site
+
+branches:
+  only:
+  - gh-pages
+
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
+
+sudo: false
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
