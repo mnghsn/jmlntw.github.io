@@ -1,4 +1,3 @@
 ---
-layout: redirect
-redirect_url: https://github.com/jmlntw
+redirect_to: https://github.com/jmlntw
 ---
