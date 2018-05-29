@@ -9,6 +9,10 @@ branches:
   only:
   - master
 
+env:
+  global:
+  - JEKYLL_ENV=production
+
 sudo: false
 
 notifications:
