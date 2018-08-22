@@ -1,19 +1,18 @@
 language: ruby
 rvm:
-  - 2.5.1
+  - 2.5
+sudo: false
 
-install: bundle install
-script: bundle exec jekyll build -d _site
+env:
+  - JEKYLL_ENV=production
+install:
+  - bundle install
+script:
+  - bundle exec jekyll build -d _site
 
 branches:
   only:
-  - master
-
-env:
-  global:
-  - JEKYLL_ENV=production
-
-sudo: false
+    - master
 
 notifications:
   email:
