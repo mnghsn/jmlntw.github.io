@@ -10,6 +10,9 @@ install:
 script:
   - bundle exec jekyll build -d _site
 
+cache:
+  bundler: true
+
 branches:
   only:
     - master
