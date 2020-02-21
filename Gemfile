@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '~> 3.8.0'
+gem 'jekyll', '3.8.5'
 
 group :jekyll_plugins do
-  gem 'jekyll-redirect-from', '~> 0.14.0'
+  gem 'jekyll-redirect-from', '0.15.0'
 end
