@@ -7,5 +7,5 @@ group :github_pages do
 end
 
 group :jekyll_plugins do
-  gem 'jekyll-redirect-from', '0.15.0'
+  gem 'jekyll-redirect-from', '0.16.0'
 end
