@@ -11,9 +11,6 @@ on:
 jobs:
   pages:
     runs-on: ubuntu-latest
-    env:
-      JEKYLL_ENV: production
-      LC_ALL: C.UTF-8
     steps:
       - uses: actions/checkout@v2
       - uses: actions/checkout@v2
@@ -35,6 +32,9 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Build Jekyll
+        env:
+          JEKYLL_ENV: production
+          LC_ALL: C.UTF-8
         run: |
           bundle exec jekyll build -d _site
       - name: Deploy Jekyll
