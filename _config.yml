@@ -3,6 +3,7 @@ exclude:
   - Gemfile.lock
   - LICENSE.md
   - README.md
+  - vendor
 
 plugins:
   - jekyll-redirect-from
