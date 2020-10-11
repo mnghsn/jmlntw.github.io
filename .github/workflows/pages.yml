@@ -9,41 +9,61 @@ on:
       - main
 
 jobs:
-  pages:
+  build:
+    name: Build GitHub Pages
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          path: _site
-      - uses: actions/setup-ruby@v1
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Ruby environment
+        uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.7
-      - uses: actions/cache@v2
+      - name: Set up cache for dependencies
+        uses: actions/cache@v2
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-      - name: Setup Jekyll
+      - name: Set up Jekyll
         run: |
           gem install bundler --no-document
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - name: Build Jekyll
+      - name: Build GitHub Pages
         env:
           JEKYLL_ENV: production
           LC_ALL: C.UTF-8
         run: |
           bundle exec jekyll build -d _site
-      - name: Deploy Jekyll
-        if: github.event_name == 'push'
-        working-directory: _site
+      - name: Upload GitHub Pages to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gh-pages
+          path: _site
+
+  deploy:
+    name: Deploy GitHub Pages
+    needs:
+      - build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Pages branch
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+      - name: Download GitHub Pages from artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: gh-pages
+      - name: Push changes to GitHub Pages branch
         run: |
           touch .nojekyll
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-          git commit --message "Deploy GitHub Pages from commit ${GITHUB_SHA}" || echo "No changes to commit"
+          git commit --message="Deploy GitHub Pages from commit ${GITHUB_SHA}" || true
           git push origin gh-pages
