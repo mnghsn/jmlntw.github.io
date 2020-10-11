@@ -1,4 +1,4 @@
-name: Build and Deploy GitHub Pages
+name: Build and Deploy
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build GitHub Pages
+    name: Build
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +45,7 @@ jobs:
           path: _site
 
   deploy:
-    name: Deploy GitHub Pages
+    name: Deploy
     needs:
       - build
     if: github.event_name == 'push'
