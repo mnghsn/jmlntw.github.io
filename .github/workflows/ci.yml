@@ -52,6 +52,7 @@ jobs:
           name: gh-pages
       - name: Push changes to GitHub Pages branch
         run: |
+          git rm -rf .
           touch .nojekyll
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
