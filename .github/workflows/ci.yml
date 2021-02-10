@@ -26,7 +26,7 @@ jobs:
           JEKYLL_ENV: production
           LC_ALL: C.UTF-8
         run: |
-          bundle exec jekyll build --destination=_site
+          bundle exec jekyll build
       - name: Upload GitHub Pages to artifact
         uses: actions/upload-artifact@v2
         with:
@@ -48,7 +48,7 @@ jobs:
           ref: gh-pages
       - name: Clean previous GitHub Pages files
         run: |
-          git rm -rf .
+          git rm -r --force .
       - name: Download GitHub Pages from artifact
         uses: actions/download-artifact@v2
         with:
