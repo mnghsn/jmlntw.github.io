@@ -72,4 +72,4 @@ jobs:
           publish_branch: gh-pages
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Deploy Jekyll site from ${{ needs.prepare.outputs.short_sha }}
+          full_commit_message: Deploy GitHub Pages from commit ${{ needs.prepare.outputs.short_sha }}
