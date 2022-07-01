@@ -42,7 +42,7 @@ jobs:
           JEKYLL_ENV: production
           LC_ALL: C.UTF-8
         run: |
-          bundle exec jekyll build
+          bundle exec jekyll build --destination=_site
       - name: Upload GitHub Pages to artifact
         uses: actions/upload-artifact@v3
         with:
